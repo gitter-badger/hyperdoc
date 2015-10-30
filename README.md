@@ -1,4 +1,4 @@
-activator-akka-scala-seed
-=========================
+Hyperdoc
+========
 
-A minimal seed template for an Akka with Scala build 
+A reactive document management system

@@ -5,12 +5,14 @@ import hyperdoc.core.{HyperdocObject, HyperdocRef}
 import scala.concurrent.Future
 import scala.reflect.ClassTag
 
-/** Basic CRUD operations for backends
+/** Basic CRUD operations for backends.
   *
   * @tparam T Hyperdoc object type
+  *
+  * @author Ezequiel Foncubierta
   */
 trait CrudOperationsBackend[T <: HyperdocObject] {
-  /** Save an hyperdoc object
+  /** Save an hyperdoc object.
     *
     * @param obj Hyperdoc object
     * @tparam A Hyperdoc object subtype
@@ -18,7 +20,7 @@ trait CrudOperationsBackend[T <: HyperdocObject] {
     */
   def save[A <: T : ClassTag](obj: A): Future[A]
 
-  /** Get an hyperdoc object
+  /** Get an hyperdoc object.
     *
     * @param ref Hyperdoc object reference
     * @tparam A Hyperdoc object subtype
@@ -26,7 +28,7 @@ trait CrudOperationsBackend[T <: HyperdocObject] {
     */
   def get[A <: T : ClassTag](ref: HyperdocRef): Future[Option[A]]
 
-  /** Remove an hyperdoc object
+  /** Remove an hyperdoc object.
     *
     * @param ref Hyperdoc object reference
     * @return Unit

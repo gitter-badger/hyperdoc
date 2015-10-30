@@ -1,7 +1,10 @@
 package hyperdoc.core.backend
 
-import hyperdoc.core.ModelObjectDefinition
+import hyperdoc.core.ModelEntityDefinition
 
-/** Model backend */
-trait ModelBackend extends CrudOperationsBackend[ModelObjectDefinition] {
+/** Manages model objects in the backend.
+  *
+  * @author Ezequiel Foncubierta
+  */
+trait ModelBackend extends CrudOperationsBackend[ModelEntityDefinition] {
 }

@@ -1,10 +1,10 @@
 package hyperdoc.core
 
-import com.typesafe.config.{Config, ConfigFactory}
-import hyperdoc.core.stores.{AuthorityStore, ModelStore, NodeStore, ObjectStore}
+import com.typesafe.config.Config
+import hyperdoc.core.stores.{AuthorityStore, ContentObjectStore, ModelStore, NodeStore}
 
 trait Hyperdoc {
-  def config: Config = ConfigFactory.load().getConfig("hyperdoc")
+  def config: Config
 
   def authorityStore: AuthorityStore
 
@@ -12,5 +12,5 @@ trait Hyperdoc {
 
   def nodeStore: NodeStore
 
-  def objectStore: ObjectStore
+  def contentObjectStore: ContentObjectStore
 }

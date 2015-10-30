@@ -2,7 +2,10 @@ package hyperdoc.core.backend
 
 import hyperdoc.core.Node
 
-/** Node backend */
+/** Manages node objects in the backend.
+  *
+  * @author Ezequiel Foncubierta
+  */
 trait NodeBackend extends CrudOperationsBackend[Node] {
   
 }

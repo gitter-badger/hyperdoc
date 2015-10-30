@@ -1,9 +1,12 @@
 package hyperdoc.core
 
-import hyperdoc.core.stores.{AuthorityStore, ModelStore, NodeStore, ObjectStore}
+import com.typesafe.config.{Config, ConfigFactory}
+import hyperdoc.core.stores.{AuthorityStore, ContentObjectStore, ModelStore, NodeStore}
 
 /** Hyperdoc main object with dummy backend */
 object DummyBackendHyperdoc extends Hyperdoc {
+
+  val config: Config = ConfigFactory.load().getConfig("hyperdoc")
 
   import hyperdoc.core.backend.DummyBackend._
 
@@ -19,8 +22,8 @@ object DummyBackendHyperdoc extends Hyperdoc {
 
   val nodeStore = TestNodeStore
 
-  object TestObjectStore extends ObjectStore
+  object TestContentObjectStore extends ContentObjectStore
 
-  val objectStore = TestObjectStore
+  val contentObjectStore = TestContentObjectStore
 
 }

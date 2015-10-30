@@ -16,21 +16,21 @@ class ModelStoreSpec extends FlatSpec with Matchers {
     result.get shouldEqual HyperdocTestObjects.TEST_MODEL_DEFINITION
   }
   it should "be get correctly by its model reference" in {
-    val opt = DummyBackendHyperdoc.modelStore.getModelDefinition(HyperdocTestObjects.TEST_MODEL_REF)
+    val opt = DummyBackendHyperdoc.modelStore.getModel(HyperdocTestObjects.TEST_MODEL_REF)
     opt shouldBe defined
     opt.get shouldEqual HyperdocTestObjects.TEST_MODEL_DEFINITION
   }
   it should "be get correctly by its schema reference" in {
-    val opt = DummyBackendHyperdoc.modelStore.getSchemaDefinition(HyperdocTestObjects.TEST_SCHEMA_REF)
+    val opt = DummyBackendHyperdoc.modelStore.getSchema(HyperdocTestObjects.TEST_SCHEMA_REF)
     opt shouldBe defined
     opt.get shouldEqual HyperdocTestObjects.TEST_SCHEMA_DEFINITION
   }
   it should "be get correctly by its property reference" in {
-    val opt = DummyBackendHyperdoc.modelStore.getPropertyDefinition(HyperdocTestObjects.TEST_STRING_PROPERTY_REF)
+    val opt = DummyBackendHyperdoc.modelStore.getProperty(HyperdocTestObjects.TEST_STRING_PROPERTY_REF)
     opt shouldBe defined
     opt.get shouldEqual HyperdocTestObjects.TEST_STRING_PROPERTY_DEFINITION
   }
   it should "not be get by an invalid model reference" in {
-    DummyBackendHyperdoc.modelStore.getModelDefinition(Model.generateModelRef("invalidModel", "1.0")) should not be defined
+    DummyBackendHyperdoc.modelStore.getModel(Model.generateModelRef("invalidModel", "1.0")) should not be defined
   }
 }

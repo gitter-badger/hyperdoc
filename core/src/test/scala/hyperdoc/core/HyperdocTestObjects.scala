@@ -91,8 +91,8 @@ object HyperdocTestObjects {
   val TEST_PARENT_NODE_REF = Node.generateNodeRef
   val TEST_CONTAINER_NODE_REF = Node.generateNodeRef
   val TEST_CONTENT_NODE_REF = Node.generateNodeRef
-  val TEST_CONTAINER_NODE = ContainerNode(TEST_CONTAINER_NODE_REF, TEST_PARENT_NODE_REF, Nil, Nil, Map())
-  val TEST_CONTENT_NODE = ContentNode(TEST_CONTENT_NODE_REF, TEST_CONTAINER_NODE_REF, TEST_CONTENT_NODE_REF, Nil, Map())
+  val TEST_CONTAINER_NODE = ContainerNode(TEST_CONTAINER_NODE_REF, TEST_PARENT_NODE_REF, Nil, Map(), Nil)
+  val TEST_CONTENT_NODE = ContentNode(TEST_CONTENT_NODE_REF, TEST_CONTAINER_NODE_REF, Nil, Map(), Some(TEST_CONTENT_NODE_REF))
 
   val TEST_BINARY_OBJECT_REF = ContentObject.generateObjectRef
   val TEST_TEXT_OBJECT_REF = ContentObject.generateObjectRef

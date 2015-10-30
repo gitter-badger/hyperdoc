@@ -8,9 +8,14 @@ import scala.concurrent.duration._
 import scala.reflect._
 import scala.util.{Failure, Success, Try}
 
-/** Model store */
-class ModelStore(implicit modelBackend: ModelBackend) extends Store[ModelObjectDefinition] {
-  /** Save a model definition
+/** Manager for [[hyperdoc.core.ModelEntityDefinition]] entities.
+  *
+  * @param modelBackend Model backend
+  *
+  * @author Ezequiel foncubierta
+  */
+class ModelStore(implicit modelBackend: ModelBackend) extends Store[ModelEntityDefinition] {
+  /** Save a model definition.
     *
     * @param model Model definition
     * @param replace Flag to replace existing model definition
@@ -27,13 +32,13 @@ class ModelStore(implicit modelBackend: ModelBackend) extends Store[ModelObjectD
   }
 
   /**
-   * Get a generic definition
+   * Get a model entity.
    *
-   * @param ref Definition reference
-   * @tparam A Definition type
-   * @return Definition
+   * @param ref Model entity reference
+   * @tparam A Model entity type
+   * @return Model entity
    */
-  def getDefinition[A <: ModelObjectDefinition : ClassTag](ref: HyperdocRef): Option[A] = try {
+  def getModelEntity[A <: ModelEntityDefinition : ClassTag](ref: HyperdocRef): Option[A] = try {
     Await.result(modelBackend.get[A](ref), 1.seconds) match {
       case Some(modelObject) if classTag[A] == classTag[modelObject.type] => Some(modelObject.asInstanceOf[A])
       case _ => None
@@ -42,39 +47,34 @@ class ModelStore(implicit modelBackend: ModelBackend) extends Store[ModelObjectD
     case e: Throwable => None
   }
 
-  /** Get a model definition
+  /** Get a model definition.
     *
     * @param ref Model reference
     * @return Model definition
     */
-  def getModelDefinition(ref: HyperdocRef): Option[ModelDefinition] =
-    getDefinition[ModelDefinition](ref)
+  def getModel(ref: HyperdocRef): Option[ModelDefinition] =
+    getModelEntity[ModelDefinition](ref)
 
-  /** Get an schema definition
+  /** Get an schema definition.
     *
     * @param ref Schema reference
     * @return Schema definition
     */
-  def getSchemaDefinition(ref: HyperdocRef): Option[SchemaDefinition] =
-    getDefinition[SchemaDefinition](ref)
+  def getSchema(ref: HyperdocRef): Option[SchemaDefinition] =
+    getModelEntity[SchemaDefinition](ref)
 
-  /** Get a property definition
+  /** Get a property definition.
     *
     * @param ref Property reference
     * @return Property definition
     */
-  def getPropertyDefinition(ref: HyperdocRef): Option[PropertyDefinition] =
-    getDefinition[PropertyDefinition](ref)
+  def getProperty(ref: HyperdocRef): Option[PropertyDefinition] =
+    getModelEntity[PropertyDefinition](ref)
 
-  /** Get any model object definition
+  /** Get a model entity.
     *
-    * @param ref Definition reference
-    * @return Definition
+    * @param ref Model entity reference
+    * @return Model entity
     */
-  def apply(ref: HyperdocRef): Option[ModelObjectDefinition] = ref match {
-    case HyperdocRef(_, Some(_), Some(_)) => getPropertyDefinition(ref) //get property
-    case HyperdocRef(_, Some(path), None) if path.count(_ == '/') == 2 => getModelDefinition(ref) // get model
-    case HyperdocRef(_, Some(path), None) => getSchemaDefinition(ref) // get schema
-    case _ => None
-  }
+  def apply(ref: HyperdocRef): Option[ModelEntityDefinition] = getModelEntity(ref)
 }

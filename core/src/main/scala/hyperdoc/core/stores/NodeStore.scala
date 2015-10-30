@@ -8,15 +8,20 @@ import scala.concurrent.duration._
 import scala.reflect._
 import scala.util.{Failure, Success, Try}
 
-/** Node store */
+/** Manager for [[hyperdoc.core.Node]] entities.
+  *
+  * @param nodeBackend Node backend
+  *
+  * @author Ezequiel Foncubierta
+  */
 class NodeStore(implicit nodeBackend: NodeBackend) extends Store[Node] {
 
-  /** Save a node
+  /** Save a node.
     *
     * @param node Node
     * @param replace Flag to replace an existing node
     * @tparam A Node type
-    * @return Exception or saved node
+    * @return Saved node
     */
   def save[A <: Node : ClassTag](node: A, replace: Boolean = false): Try[A] = try {
     if (!replace && Await.result(nodeBackend.get(node.ref), 1.seconds).isDefined) {
@@ -28,19 +33,18 @@ class NodeStore(implicit nodeBackend: NodeBackend) extends Store[Node] {
     case e: Throwable => Failure(e)
   }
 
-  /**
-   * Remove a node
-   *
-   * @param ref Node reference
-   */
+  /** Remove a node.
+    *
+    * @param ref Node reference
+    */
   def remove(ref: HyperdocRef): Unit =
     Await.result(nodeBackend.remove(ref), 1.seconds)
 
-  /** Get a generic node
+  /** Get a node.
     *
     * @param ref Node reference
     * @tparam A Node type
-    * @return Node or None
+    * @return Node
     */
   def get[A <: Node : ClassTag](ref: HyperdocRef): Option[A] =
     try {
@@ -53,46 +57,42 @@ class NodeStore(implicit nodeBackend: NodeBackend) extends Store[Node] {
     }
 
 
-  /**
-   * Get a node
-   *
-   * @param ref Node reference
-   * @return Node or None
-   */
+  /** Get a node.
+    *
+    * @param ref Node reference
+    * @return Node
+    */
   def getNode(ref: HyperdocRef): Option[Node] = get[Node](ref)
 
-  /**
-   * Get a structural node
-   *
-   * @param ref Node reference
-   * @return Node or None
-   */
+  /** Get a structural node.
+    *
+    * @param ref Node reference
+    * @return Node
+    */
   def getStructuralNode(ref: HyperdocRef): Option[StructuralNode] = get[StructuralNode](ref)
 
-  /**
-   * Get a container node
-   *
-   * @param ref Node reference
-   * @return Node or None
-   */
+  /** Get a container node.
+    *
+    * @param ref Node reference
+    * @return Node
+    */
   def getContainerNode(ref: HyperdocRef): Option[ContainerNode] = get[ContainerNode](ref)
 
-  /**
-   * Get a content node
-   *
-   * @param ref Node reference
-   * @return Node or None
-   */
+  /** Get a content node.
+    *
+    * @param ref Node reference
+    * @return Node
+    */
   def getContentNode(ref: HyperdocRef): Option[ContentNode] = get[ContentNode](ref)
 
-  /** Check whether a node exists
+  /** Check whether a node exists.
     *
     * @param ref Node reference
     * @return True if the node exists
     */
   def exists(ref: HyperdocRef): Boolean = get(ref).isDefined
 
-  /** Get any node
+  /** Get a node.
     *
     * @param ref Node reference
     * @return Node

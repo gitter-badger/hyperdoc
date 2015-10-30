@@ -2,6 +2,9 @@ package hyperdoc.core.backend
 
 import hyperdoc.core.Authority
 
-/** Authority backend */
+/** Manages authority objects in the backend.
+  *
+  * @author Ezequiel Foncubierta
+  */
 trait AuthorityBackend extends CrudOperationsBackend[Authority] {
 }

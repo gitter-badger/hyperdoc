@@ -8,15 +8,20 @@ import scala.concurrent.duration._
 import scala.reflect._
 import scala.util.{Failure, Success, Try}
 
-/** Authority store */
+/** Manager for [[hyperdoc.core.Authority]] entities
+  *
+  * @param authorityBackend Authority backend
+  *
+  * @author Ezequiel Foncubierta
+  */
 class AuthorityStore(implicit authorityBackend: AuthorityBackend) extends Store[Authority] {
-  /** Save an authority
+  /** Save an authority.
     *
-    * @param authority Authority item
+    * @param authority Authority
     * @tparam A Authority type
-    * @return Exception or authority
+    * @return Saved authority
     */
-  def save[A <: Authority: ClassTag](authority: A, replace: Boolean = false): Try[A] =
+  def save[A <: Authority : ClassTag](authority: A, replace: Boolean = false): Try[A] =
     try {
       if (!replace && Await.result(authorityBackend.get(authority.ref), 1.seconds).isDefined) {
         Failure(new Exception(s"Authority '${authority.ref}' already exists"))
@@ -28,18 +33,18 @@ class AuthorityStore(implicit authorityBackend: AuthorityBackend) extends Store[
     }
 
 
-  /** Remove an authority
+  /** Remove an authority.
     *
     * @param ref Hyperdoc reference
     */
   def remove(ref: HyperdocRef): Unit =
     Await.result(authorityBackend.remove(ref), 1.seconds)
 
-  /** Get a generic authority
+  /** Get an authority.
     *
     * @param ref Hyperdoc reference
     * @tparam A Authority type
-    * @return Optional authority
+    * @return Authority
     */
   def get[A <: Authority : ClassTag](ref: HyperdocRef): Option[A] =
     try {
@@ -51,26 +56,26 @@ class AuthorityStore(implicit authorityBackend: AuthorityBackend) extends Store[
       case e: Throwable => None
     }
 
-  /** Get a user
+  /** Get a user.
     *
     * @param ref Hyperdoc reference
-    * @return Optional user
+    * @return User
     */
   def getUser(ref: HyperdocRef): Option[User] = get[User](ref)
 
   /**
-   * Get a group
+   * Get a group.
    *
    * @param ref Hyperdoc reference
-   * @return Optional group
+   * @return Group
    */
   def getGroup(ref: HyperdocRef): Option[Group] = get[Group](ref)
 
   /**
-   * Get an authority
+   * Get an authority.
    *
    * @param ref Hyperdoc reference
-   * @return Optional authority
+   * @return Authority
    */
   override def apply(ref: HyperdocRef): Option[Authority] = get[Authority](ref)
 }

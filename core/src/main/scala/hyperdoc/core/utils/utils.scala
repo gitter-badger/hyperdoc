@@ -2,6 +2,10 @@ package hyperdoc.core
 
 import scala.util.Try
 
+/** Utility object.
+  *
+  * @author Ezequiel Foncubierta
+  */
 package object utils {
   /**
    * From: Paypal's cascade

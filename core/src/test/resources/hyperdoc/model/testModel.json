@@ -1,0 +1,54 @@
+{
+  "name": "testModel",
+  "title": "Test model",
+  "version": "1.0",
+  "schemas": [
+    {
+      "name": "testSchema",
+      "title": "Test Schema",
+      "description": "Test Schema",
+      "properties": [
+        {
+          "name": "testStringProperty",
+          "title": "Test String Property",
+          "description": "Test String Property",
+          "type": "string",
+          "required": true,
+          "multiple": false
+        },
+        {
+          "name": "testIntegerProperty",
+          "title": "Test Integer Property",
+          "description": "Test Integer Property",
+          "type": "integer",
+          "required": true,
+          "multiple": false
+        },
+        {
+          "name": "testDoubleProperty",
+          "title": "Test Double Property",
+          "description": "Test Double Property",
+          "type": "double",
+          "required": true,
+          "multiple": false
+        },
+        {
+          "name": "testBooleanProperty",
+          "title": "Test Boolean Property",
+          "description": "Test Boolean Property",
+          "type": "boolean",
+          "required": true,
+          "multiple": false
+        },
+        {
+          "name": "testReferenceProperty",
+          "title": "Test Reference Property",
+          "description": "Test Reference Property",
+          "type": "reference",
+          "required": true,
+          "multiple": false
+        }
+      ]
+    }
+  ]
+}

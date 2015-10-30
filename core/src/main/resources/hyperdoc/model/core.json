@@ -1,0 +1,33 @@
+{
+  "name": "core",
+  "title": "Hyperdoc core model",
+  "version": "1.0",
+  "schemas": [
+    {
+      "name": "naming",
+      "title": "Naming",
+      "description": "Naming",
+      "properties": [
+        {
+          "name": "name",
+          "title": "Name",
+          "description": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "title",
+          "title": "Title",
+          "description": "Title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "title": "Description",
+          "description": "Description",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "invalidTestModel",
+  "title": "Invalid Test model",
+  "version": "1.0",
+  "schemas": [
+    {
+      "name": "testSchema",
+      "title": "Test Schema",
+      "description": "Test Schema",
+      "properties": [
+        {
+          "name": "testStringProperty",
+          "title": "Test String Property",
+          "description": "Test String Property",
+          "type": "invalid"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-package hyperdoc.persistence
+package hyperdoc.journal
 
 import hyperdoc.core._
 import hyperdoc.core.backend.{AuthorityBackend, ContentObjectBackend, ModelBackend, NodeBackend}

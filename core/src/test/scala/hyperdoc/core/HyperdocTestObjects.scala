@@ -1,5 +1,7 @@
 package hyperdoc.core
 
+import scala.util.Random
+
 /** Utility class for hyperdoc tests */
 object HyperdocTestObjects {
   // test model names
@@ -103,4 +105,34 @@ object HyperdocTestObjects {
   val TEST_GROUP_REF = Authority.generateGroupRef("testGroup")
   val TEST_USER = User(TEST_USER_REF, "testUser", null, Map(), Nil)
   val TEST_GROUP = Group(TEST_GROUP_REF, "testGroup", None)
+
+  def randomName(prefix: String) = s"${prefix}_${randomString(50)}"
+
+  def randomString(length: Int): String = (Random.alphanumeric take length).mkString("")
+
+  def randomGroup: Group = {
+    val rndName = randomName("group")
+    Group(Authority.generateGroupRef(rndName), rndName, None)
+  }
+
+  //  def randomUser: User = {
+  //    val rndName = randomName("user")
+  //    User(Authority.generateUserRef(rndName), rndName, Profile(), Map(), Nil)
+  //  }
+
+  def randomContentNode: ContentNode = {
+    ContentNode(Node.generateNodeRef, Node.generateNodeRef, Nil, Map(), None)
+  }
+
+  def randomContainerNode: ContainerNode = {
+    ContainerNode(Node.generateNodeRef, Node.generateNodeRef, Nil, Map(), Nil)
+  }
+
+  def randomBinaryContentObject: BinaryContentObject = {
+    BinaryContentObject(ContentObject.generateObjectRef, 1, "image/jpeg")
+  }
+
+  def randomTextContentObject: TextContentObject = {
+    TextContentObject(ContentObject.generateObjectRef, 1, "text/plain", "utf-8")
+  }
 }

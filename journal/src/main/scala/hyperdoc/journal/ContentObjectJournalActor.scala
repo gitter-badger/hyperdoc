@@ -3,6 +3,13 @@ package hyperdoc.journal
 import akka.actor.Props
 import akka.persistence.SnapshotMetadata
 import hyperdoc.core.{ContentObject, HyperdocObject, HyperdocRef}
+import hyperdoc.journal.HyperdocJournalActor.{HyperdocCommand, HyperdocEvent}
+
+/** Content object command */
+sealed trait ContentObjectCommand extends HyperdocCommand
+
+/** Content object event */
+sealed trait ContentObjectEvent extends HyperdocEvent
 
 /** Companion object for the content object journal.
   *
@@ -10,20 +17,12 @@ import hyperdoc.core.{ContentObject, HyperdocObject, HyperdocRef}
   */
 object ContentObjectJournalActor {
 
-  import HyperdocJournalActor._
-
-  /** Content object command */
-  trait ContentObjectCommand extends HyperdocCommand
-
   /** Command for creating a content object.
     *
     * @param obj Content object
     * @tparam A Content object type
     */
   case class CreateContentObject[A <: ContentObject](obj: A) extends ContentObjectCommand
-
-  /** Content object event */
-  trait ContentObjectEvent extends HyperdocEvent
 
   /** Event produced when a content object has been created.
     *

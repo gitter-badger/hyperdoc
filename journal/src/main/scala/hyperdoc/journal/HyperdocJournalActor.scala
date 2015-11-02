@@ -33,8 +33,9 @@ object HyperdocJournalActor {
   /** Removed hyperdoc object.
     *
     * @param ref Hyperdoc reference.
+    * @tparam A Hyperdoc object type
     */
-  case class RemovedObject(ref: HyperdocRef) extends HyperdocObject
+  case class RemovedObject[A <: HyperdocObject](ref: HyperdocRef) extends HyperdocObject
 
   /** Hyperdoc event */
   trait HyperdocEvent

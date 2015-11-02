@@ -2,6 +2,13 @@ package hyperdoc.journal
 
 import akka.actor.Props
 import hyperdoc.core.{Authority, HyperdocRef}
+import hyperdoc.journal.HyperdocJournalActor.{HyperdocCommand, HyperdocEvent}
+
+/** Authority command */
+sealed trait AuthorityCommand extends HyperdocCommand
+
+/** Authority event */
+sealed trait AuthorityEvent extends HyperdocEvent
 
 /** Companion object for the authority journal.
   *
@@ -9,20 +16,12 @@ import hyperdoc.core.{Authority, HyperdocRef}
   */
 object AuthorityJournalActor {
 
-  import HyperdocJournalActor._
-
-  /** Authority command */
-  trait AuthorityCommand extends HyperdocCommand
-
   /** Command for creating an authority.
     *
     * @param authority Authority
     * @tparam A Authority type
     */
   case class CreateAuthority[A <: Authority](authority: A) extends AuthorityCommand
-
-  /** Authority event */
-  trait AuthorityEvent extends HyperdocEvent
 
   /** Event produced when an authority has been created.
     *

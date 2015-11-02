@@ -2,6 +2,13 @@ package hyperdoc.journal
 
 import akka.actor.Props
 import hyperdoc.core.{HyperdocRef, Node}
+import hyperdoc.journal.HyperdocJournalActor.{HyperdocCommand, HyperdocEvent}
+
+/** Node command */
+sealed trait NodeCommand extends HyperdocCommand
+
+/** Node event */
+sealed trait NodeEvent extends HyperdocEvent
 
 /** Companion object for the node journal.
   *
@@ -9,20 +16,12 @@ import hyperdoc.core.{HyperdocRef, Node}
   */
 object NodeJournalActor {
 
-  import HyperdocJournalActor._
-
-  /** Node command */
-  trait NodeCommand extends HyperdocCommand
-
   /** Command for creating a node.
     *
     * @param node Node
     * @tparam A Node type
     */
   case class CreateNode[A <: Node](node: A) extends NodeCommand
-
-  /** Node event */
-  trait NodeEvent extends HyperdocEvent
 
   /** Event produced when a node has been created.
     *
